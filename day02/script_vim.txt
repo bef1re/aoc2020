@@ -1,0 +1,6 @@
+Execute this in vim:
+
+:%s/\v(\d+)-\v(\d+) \v(.): \v(.*)/\=(count(submatch(4), submatch(3)) >= submatch(1) && count(submatch(4), submatch(3)) <= submatch(2)) ? submatch(4) : ""/g
+:g/^$/d
+
+This leaves only the matching passwords. The number of lines is the solution. Vim shows them in the bottom right.
