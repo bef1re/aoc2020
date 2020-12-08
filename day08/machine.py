@@ -25,13 +25,13 @@ class Machine:
 
     already_executed: set
 
-    def __init__(self, program):
+    def __init__(self, program: list[tuple[str, int]]):
         self.program = program
         self.pointer = 0
         self.accumulator = 0
         self.already_executed = set()
 
-    def accumulate(self, value):
+    def accumulate(self, value: int) -> bool:
         """
         Machine instruction to add to the accumulator
         """
@@ -39,7 +39,7 @@ class Machine:
         self.accumulator += value
         return True
         
-    def jump(self, value):
+    def jump(self, value: int) -> bool:
         """
         Machine instruction to move the pointer by value
         """
@@ -49,7 +49,7 @@ class Machine:
         self.pointer += value - 1
         return True
 
-    def halt(self, _):
+    def halt(self, _: int) -> bool:
         """
         Machine instruction to halt
         (not part of spec, specific to this implementation)
@@ -57,14 +57,14 @@ class Machine:
         log.debug("Halting execution")
         return False
 
-    def nop(self, _):
+    def nop(self, _: int) -> bool:
         """
         Machine instruction to do nothing
         """
         log.debug("Doing nothing")
         return True
         
-    def step(self):
+    def step(self) -> bool:
         """
         Execute the next program instruction
         """
@@ -91,7 +91,7 @@ class Machine:
         log.debug(f"Advancing to step {self.pointer}")
         return instructions[instr](arg)
 
-    def run(self):
+    def run(self) -> None:
         """
         Run the program until it halts or raises an exception
         """
